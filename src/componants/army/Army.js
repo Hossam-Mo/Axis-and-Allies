@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./army.css";
 
-export default function Army({ focas, setFocas, arm, id }) {
+export default function Army({ focas, setFocas, arm, id, index, place }) {
   const army = useRef();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function Army({ focas, setFocas, arm, id }) {
 
   const focasClick = () => {
     if (focas.idF !== id) {
-      setFocas({ idF: id, armyF: arm });
+      setFocas({ idF: id, armyF: arm, index, place });
     } else {
       setFocas(false);
     }

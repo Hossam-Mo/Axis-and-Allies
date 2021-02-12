@@ -14,15 +14,12 @@ function App() {
   ]);
   const [tow, setTow] = useState([]);
 
-  useEffect(() => {
-    console.log(`one${one}`);
-    console.log("tow");
-  }, [one, tow]);
-
-  const test = (set, arr, t) => {
-    set([...t, arr.splice(0, 1)]);
-
-    setFocas(false);
+  const move = (arr, place, set) => {
+    if (focas) {
+      set([...arr, { id: focas.idF, place: place }]);
+      focas.armyF.splice(focas.index, 1);
+      setFocas(false);
+    }
   };
   return (
     <div className="App">
@@ -30,25 +27,39 @@ function App() {
         className="one"
         onClick={() => {
           if (focas) {
-            test(setOne, focas.armyF, one);
+            if (focas.place !== "one") move(one, "one", setOne);
           }
         }}
       >
-        {one.map((it) => {
+        {one.map((it, index) => {
           return (
-            <Army focas={focas} setFocas={setFocas} id={it.id} arm={one}></Army>
+            <Army
+              focas={focas}
+              setFocas={setFocas}
+              id={it.id}
+              arm={one}
+              index={index}
+              place={"one"}
+            ></Army>
           );
         })}
       </button>
       <button
         onClick={() => {
-          if (focas) test(setTow, focas.armyF, tow);
+          if (focas.place !== "tow") move(tow, "tow", setTow);
         }}
         className="tow"
       >
-        {tow.map((it) => {
+        {tow.map((it, index) => {
           return (
-            <Army focas={focas} setFocas={setFocas} id={it.id} arm={tow}></Army>
+            <Army
+              focas={focas}
+              setFocas={setFocas}
+              id={it.id}
+              arm={tow}
+              index={index}
+              place={"tow"}
+            ></Army>
           );
         })}
       </button>
